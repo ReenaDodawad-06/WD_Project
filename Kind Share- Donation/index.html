@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KindShare - Share Your Kindness</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="splash-screen" id="splashScreen">
+        <div class="splash-content">
+            <div class="logo-container">
+                <i class="fas fa-hands-helping"></i>
+                <h1>KindShare</h1>
+            </div>
+            <p class="tagline">Making a difference, one donation at a time</p>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar" id="mainNav">
+        <div class="nav-brand">
+            <i class="fas fa-hands-helping"></i>
+            <span>KindShare</span>
+        </div>
+        <div class="nav-links">
+            <a href="#home" class="active">Home</a>
+            <a href="#donate">Donate</a>
+            <a href="#track">Track Donation</a>
+            <a href="#badges">My Badges</a>
+        </div>
+        <div class="nav-profile">
+            <span class="points">Points: <span id="userPoints">0</span></span>
+            <button class="login-btn" id="loginBtn">Login</button>
+            <div class="user-menu hidden" id="userMenu">
+                <span id="userNameDisplay"></span>
+                <button id="logoutBtn">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section id="home" class="hero-section">
+            <div class="hero-content">
+                <h1>Share Your Kindness</h1>
+                <p>Your unused items can make someone's day better. Donate today and earn rewards while helping others.</p>
+                <button class="cta-button" onclick="scrollToDonate()">Start Donating</button>
+            </div>
+            <div class="donation-stats">
+                <div class="stat-card">
+                    <i class="fas fa-gift"></i>
+                    <h3>Total Donations</h3>
+                    <p id="totalDonations">1,234</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Lives Impacted</h3>
+                    <p id="livesImpacted">5,678</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-medal"></i>
+                    <h3>Active Donors</h3>
+                    <p id="activeDonors">890</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="donate" class="donation-section">
+            <h2>Make a Donation</h2>
+            <div class="category-grid">
+                <div class="category-card" onclick="selectCategory('education')">
+                    <i class="fas fa-book"></i>
+                    <h3>Education</h3>
+                    <p>Books, Stationery, etc.</p>
+                </div>
+                <div class="category-card" onclick="selectCategory('food')">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Food Items</h3>
+                    <p>Non-perishable food</p>
+                </div>
+                <div class="category-card" onclick="selectCategory('household')">
+                    <i class="fas fa-home"></i>
+                    <h3>Household</h3>
+                    <p>Furniture, Appliances</p>
+                </div>
+                <div class="category-card" onclick="selectCategory('clothes')">
+                    <i class="fas fa-tshirt"></i>
+                    <h3>Clothes</h3>
+                    <p>All age groups</p>
+                </div>
+            </div>
+
+            <form id="donationForm" class="donation-form hidden">
+                <div class="form-group">
+                    <label>Category</label>
+                    <input type="text" id="category" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Item Description</label>
+                    <textarea id="description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Upload Images</label>
+                    <div class="image-upload-container">
+                        <input type="file" id="images" multiple accept="image/*" required>
+                        <div class="preview-container" id="imagePreview"></div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Pickup Address</label>
+                        <textarea id="address" required></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Submit Donation</button>
+            </form>
+        </section>
+
+        <section id="track" class="track-section hidden">
+            <h2>Track Your Donation</h2>
+            <div class="donation-status">
+                <div class="status-timeline">
+                    <div class="status-point active">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>Request Sent</span>
+                    </div>
+                    <div class="status-point">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Approved</span>
+                    </div>
+                    <div class="status-point">
+                        <i class="fas fa-truck"></i>
+                        <span>Pickup Scheduled</span>
+                    </div>
+                    <div class="status-point">
+                        <i class="fas fa-heart"></i>
+                        <span>Donated</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="badges" class="badges-section hidden">
+            <h2>Your Achievement Badges</h2>
+            <div class="badges-grid">
+                <div class="badge-card">
+                    <div class="badge-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>First Time Donor</h3>
+                    <p>Made your first donation</p>
+                </div>
+                <div class="badge-card locked">
+                    <div class="badge-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3>Regular Donor</h3>
+                    <p>Made 5 donations</p>
+                </div>
+                <div class="badge-card locked">
+                    <div class="badge-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3>Super Donor</h3>
+                    <p>Made 10 donations</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About KindShare</h3>
+                <p>Connecting generous hearts with those in need through simple acts of kindness.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#home">Home</a>
+                <a href="#donate">Donate</a>
+                <a href="#track">Track Donation</a>
+                <a href="#badges">Badges</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: support@kindshare.org</p>
+                <p>Phone: (555) 123-4567</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 KindShare. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Login to KindShare</h2>
+            <div class="login-tabs">
+                <button class="tab-btn active" data-tab="email">Email</button>
+                <button class="tab-btn" data-tab="phone">Phone</button>
+            </div>
+            <div class="login-form-container">
+                <form id="emailLoginForm" class="login-form">
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" required>
+                    </div>
+                    <div class="form-options">
+                        <label>
+                            <input type="checkbox" id="rememberMe"> Remember me
+                        </label>
+                        <a href="#" id="forgotPasswordLink">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="login-submit-btn">Login</button>
+                </form>
+                <form id="phoneLoginForm" class="login-form hidden">
+                    <div class="form-group">
+                        <label for="loginPhone">Phone Number</label>
+                        <input type="tel" id="loginPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phoneLoginPassword">Password</label>
+                        <input type="password" id="phoneLoginPassword" required>
+                    </div>
+                    <div class="form-options">
+                        <label>
+                            <input type="checkbox" id="phoneRememberMe"> Remember me
+                        </label>
+                        <a href="#" id="phoneForgotPasswordLink">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="login-submit-btn">Login</button>
+                </form>
+            </div>
+            <p class="register-link">Don't have an account? <a href="#" id="registerLink">Register</a></p>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal" id="forgotPasswordModal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Reset Password</h2>
+            <div class="login-tabs">
+                <button class="tab-btn active" data-tab="emailReset">Email</button>
+                <button class="tab-btn" data-tab="phoneReset">Phone</button>
+            </div>
+            <div class="login-form-container">
+                <form id="emailResetForm" class="login-form">
+                    <div class="form-group">
+                        <label for="resetEmail">Email</label>
+                        <input type="email" id="resetEmail" required>
+                    </div>
+                    <button type="submit" class="login-submit-btn">Send Reset Link</button>
+                </form>
+                <form id="phoneResetForm" class="login-form hidden">
+                    <div class="form-group">
+                        <label for="resetPhone">Phone Number</label>
+                        <input type="tel" id="resetPhone" required>
+                    </div>
+                    <button type="submit" class="login-submit-btn">Send Reset Link</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Create an Account</h2>
+            <form id="registerForm" class="login-form">
+                <div class="form-group">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPhone">Phone Number</label>
+                    <input type="tel" id="registerPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" required>
+                </div>
+                <button type="submit" class="login-submit-btn">Register</button>
+            </form>
+            <p class="register-link">Already have an account? <a href="#" id="loginLink">Login</a></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
